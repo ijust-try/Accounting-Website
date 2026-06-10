@@ -5,12 +5,19 @@ import os
 from datetime import date, timedelta
 
 try:
-    from config import DATABASE_URL, GMAIL_SENDER, GMAIL_APP_PASS, OTP_EXPIRY_MINS
-except ImportError:
-    DATABASE_URL    = os.environ.get("DATABASE_URL", "")
-    GMAIL_SENDER    = os.environ.get("GMAIL_SENDER", "")
-    GMAIL_APP_PASS  = os.environ.get("GMAIL_APP_PASS", "")
-    OTP_EXPIRY_MINS = 2
+    import streamlit as st
+    DATABASE_URL    = st.secrets["DATABASE_URL"]
+    GMAIL_SENDER    = st.secrets["GMAIL_SENDER"]
+    GMAIL_APP_PASS  = st.secrets["GMAIL_APP_PASS"]
+    OTP_EXPIRY_MINS = int(st.secrets.get("OTP_EXPIRY_MINS", 2))
+except Exception:
+    try:
+        from config import DATABASE_URL, GMAIL_SENDER, GMAIL_APP_PASS, OTP_EXPIRY_MINS
+    except ImportError:
+        DATABASE_URL    = os.environ.get("DATABASE_URL", "")
+        GMAIL_SENDER    = os.environ.get("GMAIL_SENDER", "")
+        GMAIL_APP_PASS  = os.environ.get("GMAIL_APP_PASS", "")
+        OTP_EXPIRY_MINS = 2
 
 # ---------------- DB CONNECTION ---------------- #
 def get_conn():
