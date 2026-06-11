@@ -1,4 +1,10 @@
 import streamlit as st
+try:
+    st.write("DB URL starts with:", st.secrets["DATABASE_URL"][:30])
+except Exception as e:
+    st.write("Secret error:", str(e))
+
+import streamlit as st
 from datetime import date, timedelta
 from backend import (
     login_user, register_user, reset_password,
