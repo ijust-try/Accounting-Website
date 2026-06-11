@@ -21,7 +21,7 @@ except Exception:
 
 # ---------------- DB CONNECTION ---------------- #
 def get_conn():
-    conn = psycopg2.connect(DATABASE_URL, sslmode="require")
+    conn = psycopg2.connect(DATABASE_URL)
     return conn
 
 # ---------------- CONSTANTS ---------------- #
